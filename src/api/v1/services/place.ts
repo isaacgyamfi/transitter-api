@@ -1,5 +1,5 @@
 import { IPlace } from '../interfaces/place';
-import { Place } from '../models/Place';
+import { Place } from '../models/Station';
 
 export const saveNewPlace = async (data: IPlace): Promise<any> => {
   try {

@@ -1,7 +1,7 @@
-import { Model, Document, Schema, model } from 'mongoose';
+import { Model, Schema, model } from 'mongoose';
 import { IPlace } from '../interfaces/place';
 
-const placeSchema = new Schema<IPlace>(
+const placeScheme = new Schema<IPlace>(
   {
     placeId: { type: Schema.Types.ObjectId, required: true },
     name: { type: String, required: true },
@@ -15,20 +15,8 @@ const placeSchema = new Schema<IPlace>(
         lng: { type: Number, required: true },
       },
     },
-    destinations: [
-      {
-        address: { type: Schema.Types.ObjectId, required: true, ref: 'Place' },
-        fare: { type: Number, required: false },
-        stops: [
-          {
-            address: { type: Schema.Types.ObjectId, required: true, ref: 'Place' },
-            fare: { type: Number, required: false },
-          },
-        ],
-      },
-    ],
   },
   { timestamps: true },
 );
 
-export const Place: Model<IPlace> = model<IPlace>('Place', placeSchema);
+export const place: Model<IPlace> = model<IPlace>('Place', placeScheme);

@@ -1,3 +1,9 @@
+export interface IStation {
+  stationId?: string;
+  contact?: { name: string; phone: string; email: string };
+  ['destination']: IPlace;
+}
+
 export interface IPlace {
   placeId?: string;
   name: string;
@@ -11,15 +17,5 @@ export interface IPlace {
       lng: number;
     };
   };
-  ['destination']: {
-    name: string;
-    type: string;
-    geometry: {
-      location: {
-        lat: number;
-        lng: number;
-      };
-    };
-    fare: number;
-  };
+  fare?: number;
 }
