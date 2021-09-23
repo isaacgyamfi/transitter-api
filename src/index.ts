@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 // import cors from 'cors';
 import placeRouter from './api/v1/routes/place';
 import mongoose, { Mongoose } from 'mongoose';
+import stationRouter from './api/v1/routes/station';
 
 dotenv.config();
 
@@ -17,7 +18,8 @@ app.use(helmet());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use('/', placeRouter);
+app.use('/places', placeRouter);
+app.use('/stations', stationRouter);
 
 mongoose
   .connect(`${MONGO_URI}`, {

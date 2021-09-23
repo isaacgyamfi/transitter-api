@@ -3,7 +3,7 @@ import { addPlace, getAllPlaces } from '../controllers/place';
 
 const placeRouter = Router();
 
-placeRouter.post('/create', addPlace);
-placeRouter.get('/places', getAllPlaces);
+placeRouter.post('/add', addPlace);
+placeRouter.get('/', getAllPlaces);
 
 export default placeRouter;

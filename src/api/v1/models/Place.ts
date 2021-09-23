@@ -5,7 +5,7 @@ const placeScheme = new Schema<IPlace>(
   {
     placeId: { type: Schema.Types.ObjectId, required: true },
     name: { type: String, required: true },
-    types: [{ type: String, enum: ['bus stop', 'taxi station', 'bus station'] }],
+    types: [{ type: String, enum: ['bus stop', 'taxi station', 'bus station', 'establishment'] }],
     vicinity: { type: String, required: true },
     region: { type: String, required: true },
     photos: [{ type: String, required: false }],
@@ -19,4 +19,4 @@ const placeScheme = new Schema<IPlace>(
   { timestamps: true },
 );
 
-export const place: Model<IPlace> = model<IPlace>('Place', placeScheme);
+export const Place: Model<IPlace> = model<IPlace>('Place', placeScheme);
