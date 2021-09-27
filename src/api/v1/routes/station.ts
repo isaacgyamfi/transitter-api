@@ -4,7 +4,7 @@ import { addStation, getAllStations } from '../controllers/station';
 const stationRouter = Router();
 
 stationRouter.post('/add', addStation);
-stationRouter.get('/stations', getAllStations);
-stationRouter.get('/station:id');
+stationRouter.get('/', getAllStations);
+stationRouter.get('/:id');
 
 export default stationRouter;

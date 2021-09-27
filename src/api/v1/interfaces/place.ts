@@ -16,16 +16,21 @@ export interface IStation {
 }
 
 export interface IPlace {
-  placeId?: string;
   name: string;
-  types: Array<string>;
+  type: string;
   vicinity: string;
   region: string;
-  photos: Array<string>;
+  photos?: Array<string>;
   geometry: {
     location: {
       lat: number;
       lng: number;
     };
   };
+}
+
+export interface IQueryPlace {
+  name: string;
+  vicinity?: string;
+  region?: string;
 }

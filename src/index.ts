@@ -6,6 +6,7 @@ import dotenv from 'dotenv';
 import placeRouter from './api/v1/routes/place';
 import mongoose, { Mongoose } from 'mongoose';
 import stationRouter from './api/v1/routes/station';
+import adminRouter from './api/v1/routes/admin';
 
 dotenv.config();
 
@@ -20,6 +21,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/places', placeRouter);
 app.use('/stations', stationRouter);
+// app.use('/taxis');
+app.use('/admin', adminRouter);
 
 mongoose
   .connect(`${MONGO_URI}`, {

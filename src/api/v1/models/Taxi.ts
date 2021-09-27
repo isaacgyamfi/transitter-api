@@ -12,6 +12,11 @@ const taxiSchema = new Schema<ITaxi>(
       contact: { type: String, required: true },
       address: { type: String, required: false },
     },
+    station: {
+      type: Schema.Types.ObjectId,
+      ref: 'Station',
+      required: false,
+    },
     // colorCode: {type: String, required: true, enum: []}
   },
   { timestamps: true },
