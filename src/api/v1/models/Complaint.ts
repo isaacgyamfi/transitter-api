@@ -17,9 +17,11 @@ const complaintSchema = new Schema<IComplaint>(
         required: false,
       },
     },
-    complaint: { type: String, subject: String, description: String },
+    complaint: { complaintType: String, subject: String, description: String },
+    registrationNumber: { type: String, required: false },
+    status: { type: String, required: false, default: 'NOT RESOLVED' },
   },
   { timestamps: true },
 );
 
-export const Complaint: Model<IComplaint> = model<IComplaint>('Complain', complaintSchema);
+export const Complaint: Model<IComplaint> = model<IComplaint>('Complaint', complaintSchema);
