@@ -8,13 +8,19 @@ export interface ITaxi {
     contact: string;
     address: string;
   };
+  station?: string;
+  taxi?: string;
+  colorCode: {
+    fenders: string;
+    doors: string;
+  };
 }
 
 export interface IDriver {
-  driverId: string;
   name: string;
   phone: string;
   email: string;
   address: string;
-  taxiLocal: string;
+  taxiLocal?: string;
+  taxi?: string;
 }

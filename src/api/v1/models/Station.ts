@@ -3,20 +3,26 @@ import { IStation } from '../interfaces/place';
 
 const stationSchema = new Schema<IStation>(
   {
-    stationId: { type: Schema.Types.ObjectId, required: true },
-    stationAdmin: { type: Schema.Types.ObjectId, required: true },
+    stationAdmin: {
+      name: {
+        type: String,
+        required: true,
+      },
+      phone: {
+        type: String,
+        required: true,
+      },
+      email: {
+        type: String,
+        required: false,
+      },
+    },
     contact: { name: String, phone: String, email: String },
     address: { type: Schema.Types.ObjectId, required: true, ref: 'Place' },
     destinations: [
       {
         address: { type: Schema.Types.ObjectId, required: true, ref: 'Place' },
         fare: { type: Number, required: false },
-        stops: [
-          {
-            address: { type: Schema.Types.ObjectId, required: true, ref: 'Place' },
-            fare: { type: Number, required: false },
-          },
-        ],
       },
     ],
     taxis: [

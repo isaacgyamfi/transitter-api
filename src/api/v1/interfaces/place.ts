@@ -1,18 +1,18 @@
 export interface IStation {
-  stationId?: string;
-  contact?: { name: string; phone: string; email: string };
-  destination: [
+  stationAdmin: {
+    name: string;
+    phone: string;
+    email?: string;
+  };
+  contact: { name: string; phone: string; email: string };
+  address: string;
+  destinations?: [
     {
       address: IPlace;
       fare?: number;
-      stops: [
-        {
-          address: IPlace;
-          fare?: number;
-        },
-      ];
     },
   ];
+  taxis?: [string];
 }
 
 export interface IPlace {

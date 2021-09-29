@@ -6,7 +6,7 @@ const taxiSchema = new Schema<ITaxi>(
     registrationNumber: { type: String, required: true },
     brand: { type: String, required: true },
     model: { type: String, required: true },
-    vin: { type: String, required: true },
+    vin: { type: String, required: false },
     owner: {
       name: { type: String, required: true },
       contact: { type: String, required: true },
@@ -17,7 +17,21 @@ const taxiSchema = new Schema<ITaxi>(
       ref: 'Station',
       required: false,
     },
-    // colorCode: {type: String, required: true, enum: []}
+    driver: {
+      type: Schema.Types.ObjectId,
+      ref: 'Driver',
+      required: false,
+    },
+    colorCode: {
+      fender: {
+        type: String,
+        required: true,
+      },
+      doors: {
+        type: String,
+        required: true,
+      },
+    },
   },
   { timestamps: true },
 );

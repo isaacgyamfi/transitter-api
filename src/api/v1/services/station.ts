@@ -1,7 +1,7 @@
-import { IStation } from '../interfaces/place';
 import { Station } from '../models/Station';
+import { IAdmin } from '../interfaces/admin';
 
-export const saveNewStation = async (data: IStation): Promise<any> => {
+export const saveNewStation = async (data: IAdmin): Promise<any> => {
   try {
     return await Station.create(data);
   } catch (error) {

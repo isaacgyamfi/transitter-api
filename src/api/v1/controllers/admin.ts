@@ -1,10 +1,16 @@
 import { Request, Response } from 'express';
-import { authenticatePublisher, getAdmins, saveNewAdmin } from '../services/admin';
+import { authenticatePublisher, checkAdminExists, getAdmins, saveNewAdmin } from '../services/admin';
 
 export const createAdmin = async (req: Request, res: Response) => {
+  const { email, phone } = req.body;
+  const userData = { email, phone };
   try {
-    const addedAdmin = await saveNewAdmin(req.body);
-    return res.status(201).json({ success: true, message: 'Admin created successfully!', data: addedAdmin });
+    const userExists = await checkAdminExists(userData);
+    if (!userExists) {
+      const addedAdmin = await saveNewAdmin(req.body);
+      return res.status(201).json({ success: true, message: 'Admin created successfully!', data: addedAdmin });
+    }
+    return res.status(400).json({ success: false, message: 'Failed creating new admin. Admin already exists' });
   } catch (err) {
     return res.status(400).json({ success: false, message: 'Failed creating new admin' });
   }
@@ -12,8 +18,8 @@ export const createAdmin = async (req: Request, res: Response) => {
 
 export const getAllAdmins = async (req: Request, res: Response) => {
   try {
-    const allPlaces = getAdmins();
-    return res.status(200).json({ success: true, message: 'Fetched admins successfully!', data: allPlaces });
+    const allAdmins = getAdmins();
+    return res.status(200).json({ success: true, message: 'Fetched admins successfully!', data: allAdmins });
   } catch (e) {
     return res.status(400).json({ success: false, message: 'Failed retrieving admins' });
   }
