@@ -2,7 +2,7 @@ import express, { Express } from 'express';
 import bodyParser from 'body-parser';
 import helmet from 'helmet';
 import dotenv from 'dotenv';
-// import cors from 'cors';
+import cors from 'cors';
 import placeRouter from './api/v1/routes/place';
 import mongoose, { Mongoose } from 'mongoose';
 import stationRouter from './api/v1/routes/station';
@@ -17,6 +17,7 @@ const PORT = process.env.PORT || 5000;
 const MONGO_URI = process.env.MONGO_URI;
 
 const app: Express = express();
+app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
 
 app.use(helmet());
 app.use(bodyParser.json());

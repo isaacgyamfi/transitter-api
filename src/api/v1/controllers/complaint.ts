@@ -12,7 +12,7 @@ export const createComplaint = async (req: Request, res: Response) => {
 
 export const getAllComplaints = async (req: Request, res: Response) => {
   try {
-    const allComplaints = getComplaints();
+    const allComplaints = await getComplaints();
     return res.status(200).json({ success: true, message: 'Fetched complaints successfully!', data: allComplaints });
   } catch (e) {
     return res.status(400).json({ success: false, message: 'Failed retrieving admins' });

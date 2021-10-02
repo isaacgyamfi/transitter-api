@@ -1,7 +1,7 @@
 import { Station } from '../models/Station';
-import { IAdmin } from '../interfaces/admin';
+import { IStation } from '../interfaces/place';
 
-export const saveNewStation = async (data: IAdmin): Promise<any> => {
+export const saveNewStation = async (data: IStation): Promise<any> => {
   try {
     return await Station.create(data);
   } catch (error) {
@@ -11,7 +11,7 @@ export const saveNewStation = async (data: IAdmin): Promise<any> => {
 
 export const getStations = async (): Promise<any> => {
   try {
-    return await Station.find();
+    return await Station.find().populate('address');
   } catch (error) {
     return false;
   }

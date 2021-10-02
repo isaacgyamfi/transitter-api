@@ -21,7 +21,7 @@ export const saveNewTaxi = async (data: ITaxi): Promise<any> => {
 
 export const getTaxis = async (): Promise<any> => {
   try {
-    return await Taxi.find();
+    return await Taxi.find().populate({ path: 'driver station', populate: { path: 'address' } });
   } catch (error) {
     return false;
   }

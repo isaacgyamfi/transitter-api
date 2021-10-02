@@ -1,6 +1,10 @@
 import QueryString from 'qs';
 import { Driver } from '../models/Driver';
 import { IDriver } from '../interfaces/taxi';
+import { Taxi } from '../models/Taxi';
+import taxi from '../routes/taxi';
+import { Station } from '../models/Station';
+import { Place } from '../models/Place';
 
 export const checkDriverExists = async (data: string): Promise<boolean> => {
   try {
@@ -13,7 +17,10 @@ export const checkDriverExists = async (data: string): Promise<boolean> => {
 
 export const saveNewDriver = async (data: IDriver): Promise<any> => {
   try {
-    return await Driver.create(data);
+    const fetchedPlace = await Place.findOne({ name: data.taxiLocal });
+    const fetchedStation = await Station.findOne({ address: fetchedPlace?._id });
+    const fetchedTaxi = await Taxi.findOne({ registrationNumber: data.taxi });
+    return await Driver.create({ ...data, taxi: fetchedTaxi?._id, taxiLocal: fetchedStation?._id });
   } catch (error) {
     return false;
   }
@@ -21,7 +28,7 @@ export const saveNewDriver = async (data: IDriver): Promise<any> => {
 
 export const getDrivers = async (): Promise<any> => {
   try {
-    return await Driver.find();
+    return await Driver.find().populate({ path: 'taxi taxiLocal', populate: { path: 'address' } });
   } catch (error) {
     return false;
   }

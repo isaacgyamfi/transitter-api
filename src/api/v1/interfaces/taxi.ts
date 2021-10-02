@@ -9,7 +9,7 @@ export interface ITaxi {
     address: string;
   };
   station?: string;
-  taxi?: string;
+  driver?: string;
   colorCode: {
     fenders: string;
     doors: string;
