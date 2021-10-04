@@ -11,7 +11,7 @@ export interface ITaxi {
   station?: string;
   driver?: string;
   colorCode: {
-    fenders: string;
+    fender: string;
     doors: string;
   };
 }

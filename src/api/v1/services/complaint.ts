@@ -17,6 +17,20 @@ export const getComplaints = async (): Promise<any> => {
     return false;
   }
 };
+
+export const getComplaintStats = async (): Promise<boolean | any> => {
+  try {
+    const fares = await Complaint.find({ 'complaint.complaintType': 'FARE' }).countDocuments();
+    const thefts = await Complaint.find({ 'complaint.complaintType': 'THEFT' }).countDocuments();
+    const abuses = await Complaint.findOne({ 'complaint.complaintType': 'ABUSE' }).countDocuments();
+    const forgottenItems = await Complaint.findOne({ 'complaint.complaintType': 'FORGOTTEN ITEM' }).countDocuments();
+
+    return { fares, thefts, abuses, forgottenItems };
+  } catch (e) {
+    return false;
+  }
+};
+
 export const queryPlace = async (data: QueryString.ParsedQs): Promise<any> => {
   // console.log(data);
   try {

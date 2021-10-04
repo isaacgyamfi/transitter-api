@@ -10,6 +10,7 @@ import adminRouter from './api/v1/routes/admin';
 import taxiRouter from './api/v1/routes/taxi';
 import driverRouter from './api/v1/routes/driver';
 import complaintRouter from './api/v1/routes/complaint';
+import statsRouter from './api/v1/routes/stats';
 
 dotenv.config();
 
@@ -17,7 +18,7 @@ const PORT = process.env.PORT || 5000;
 const MONGO_URI = process.env.MONGO_URI;
 
 const app: Express = express();
-app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
+app.use(cors());
 
 app.use(helmet());
 app.use(bodyParser.json());
@@ -29,6 +30,7 @@ app.use('/taxis', taxiRouter);
 app.use('/admins', adminRouter);
 app.use('/drivers', driverRouter);
 app.use('/complaints', complaintRouter);
+app.use('/stats', statsRouter);
 
 mongoose
   .connect(`${MONGO_URI}`, {

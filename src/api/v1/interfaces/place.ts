@@ -5,14 +5,14 @@ export interface IStation {
     email?: string;
   };
   contact: { name: string; phone: string; email: string };
-  address: string;
+  address: any;
   destinations?: [
     {
       address: IPlace;
       fare?: number;
     },
   ];
-  taxis?: [string];
+  taxis?: [any];
 }
 
 export interface IPlace {

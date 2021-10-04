@@ -17,7 +17,11 @@ const complaintSchema = new Schema<IComplaint>(
         required: false,
       },
     },
-    complaint: { complaintType: String, subject: String, description: String },
+    complaint: {
+      complaintType: { type: String, required: true, enum: ['FARE', 'THEFT', 'ABUSE', 'FORGOTTEN ITEM'] },
+      subject: String,
+      description: String,
+    },
     registrationNumber: { type: String, required: false },
     status: { type: String, required: false, default: 'NOT RESOLVED' },
   },

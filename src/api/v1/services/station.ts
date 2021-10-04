@@ -1,9 +1,12 @@
 import { Station } from '../models/Station';
 import { IStation } from '../interfaces/place';
+import { Place } from '../models/Place';
 
 export const saveNewStation = async (data: IStation): Promise<any> => {
+  console.log(data);
   try {
-    return await Station.create(data);
+    const place = await Place.findOne({ name: data.address });
+    return await Station.create({ ...data, address: place?._id });
   } catch (error) {
     return false;
   }

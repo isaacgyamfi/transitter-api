@@ -1,10 +1,11 @@
 import { Router } from 'express';
-import { addTaxi, getAllTaxis } from '../controllers/taxi';
+import { addTaxi, assignDriverToTaxi, getAllTaxis, getTaxi } from '../controllers/taxi';
 
 const taxiRouter = Router();
 
 taxiRouter.post('/add', addTaxi);
 taxiRouter.get('/', getAllTaxis);
-taxiRouter.get('/:id');
+taxiRouter.get('/:number', getTaxi);
+taxiRouter.post('/assign-driver', assignDriverToTaxi);
 
 export default taxiRouter;

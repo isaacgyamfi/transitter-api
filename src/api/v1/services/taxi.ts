@@ -1,10 +1,13 @@
 import QueryString from 'qs';
 import { Taxi } from '../models/Taxi';
 import { ITaxi } from '../interfaces/taxi';
+import { Station } from '../models/Station';
+import { Place } from '../models/Place';
+import { Driver } from '../models/Driver';
 
-export const checkTaxiExists = async (data: { vin: string; registrationNumber: string }): Promise<boolean> => {
+export const checkTaxiExists = async (data: string): Promise<boolean> => {
   try {
-    const taxiExists = await Taxi.findOne({ registrationNumber: data.registrationNumber });
+    const taxiExists = await Taxi.findOne({ registrationNumber: data });
     return taxiExists ? true : false;
   } catch (e) {
     return true;
@@ -13,7 +16,18 @@ export const checkTaxiExists = async (data: { vin: string; registrationNumber: s
 
 export const saveNewTaxi = async (data: ITaxi): Promise<any> => {
   try {
-    return await Taxi.create(data);
+    const fetchedPlace = await Place.findOne({ name: data.station });
+    const fetchedStation = await Station.findOne({ address: fetchedPlace?._id });
+    return await Taxi.create({ ...data, station: fetchedStation?._id });
+  } catch (error) {
+    return false;
+  }
+};
+
+export const assignDriver = async (data: { registrationNumber: string; driver: string }): Promise<any> => {
+  console.log(data);
+  try {
+    return await Taxi.findOneAndUpdate({ registrationNumber: data.registrationNumber }, { driver: data.driver });
   } catch (error) {
     return false;
   }
@@ -21,18 +35,20 @@ export const saveNewTaxi = async (data: ITaxi): Promise<any> => {
 
 export const getTaxis = async (): Promise<any> => {
   try {
-    return await Taxi.find().populate({ path: 'driver station', populate: { path: 'address' } });
+    return await Taxi.find()
+      .populate({ path: 'driver', model: 'Driver' })
+      .populate({ path: 'station', model: 'Station', populate: { path: 'address' } });
   } catch (error) {
     return false;
   }
 };
-export const queryTaxi = async (data: QueryString.ParsedQs): Promise<any> => {
-  // console.log(data);
+
+export const findTaxi = async (data: string): Promise<any> => {
   try {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    return await Taxi.findOne();
-  } catch (error) {
+    return await Taxi.findOne({ registrationNumber: data })
+      .populate({ path: 'driver', model: 'Driver' })
+      .populate({ path: 'station', model: 'Station', populate: { path: 'address' } });
+  } catch (e) {
     return false;
   }
 };

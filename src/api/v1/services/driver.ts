@@ -20,7 +20,15 @@ export const saveNewDriver = async (data: IDriver): Promise<any> => {
     const fetchedPlace = await Place.findOne({ name: data.taxiLocal });
     const fetchedStation = await Station.findOne({ address: fetchedPlace?._id });
     const fetchedTaxi = await Taxi.findOne({ registrationNumber: data.taxi });
-    return await Driver.create({ ...data, taxi: fetchedTaxi?._id, taxiLocal: fetchedStation?._id });
+    if (fetchedTaxi?.driver) {
+      return false;
+    } else {
+      const newDriver = await Driver.create({ ...data, taxi: fetchedTaxi?._id, taxiLocal: fetchedStation?._id });
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      fetchedTaxi.driver = newDriver._id;
+      return newDriver;
+    }
   } catch (error) {
     return false;
   }
